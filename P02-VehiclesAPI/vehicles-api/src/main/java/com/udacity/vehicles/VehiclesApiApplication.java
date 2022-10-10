@@ -65,4 +65,5 @@ public class VehiclesApiApplication {
         return WebClient.create(endpoint);
     }
 
+
 }

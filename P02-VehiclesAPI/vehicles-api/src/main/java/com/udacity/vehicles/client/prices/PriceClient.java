@@ -2,6 +2,7 @@ package com.udacity.vehicles.client.prices;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -15,7 +16,7 @@ public class PriceClient {
 
     private final WebClient client;
 
-    public PriceClient(WebClient pricing) {
+    public PriceClient(@Qualifier("pricing")WebClient pricing) {
         this.client = pricing;
     }
 
@@ -40,7 +41,7 @@ public class PriceClient {
                             .build()
                     )
                     .retrieve().bodyToMono(Price.class).block();
-
+                    System.out.println(price.getCurrency());
             return String.format("%s %s", price.getCurrency(), price.getPrice());
 
         } catch (Exception e) {
